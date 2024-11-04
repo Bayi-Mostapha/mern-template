@@ -1,21 +1,23 @@
 import { createBrowserRouter } from "react-router-dom";
-import { _LOGIN } from "./urls";
+import { _ADMIN, _LOGIN } from "./urls";
 import Login from "@/pages/login";
 import AdminLayout from "@/layouts/admin";
+import AdminProtector from "./protectors/admin-protector";
+import GuestProtector from "./protectors/guest-protector";
 
 export const router = createBrowserRouter([
     {
-        element: <AdminLayout />,
+        element: <AdminProtector><AdminLayout /></AdminProtector>,
         children: [
-            // {
-            //     path: HOME,
-            //     element: <Home />
-            // },
+            {
+                path: _ADMIN,
+                element: <div>hi</div>
+            },
         ]
     },
     {
         path: _LOGIN,
-        element: <Login />
+        element: <GuestProtector><Login /></GuestProtector>
     },
     {
         path: '*',
